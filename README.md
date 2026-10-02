@@ -18,7 +18,7 @@
 
 ##  Live Demo
 
-🔗 **Live URL**: `https://YOUR-DEPLOYED-URL.vercel.app` *(Paste your live link here)*
+🔗 **Live URL**: festify-event-nexus.vercel.app
 
 
 
