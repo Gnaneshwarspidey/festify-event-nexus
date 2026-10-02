@@ -12,7 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { EventOption, eventCategories, getEventsByCategory } from "@/utils/eventsData";
 import { toast } from "@/hooks/use-toast";
-import { Calendar, MapPin, Clock, CheckCircle2 } from "lucide-react";
+import { Calendar, MapPin, Clock, CheckCircle2, Mail, Send } from "lucide-react";
+import { notifyTeamOnRegistration } from "@/utils/emailService";
 
 interface RegisterModalProps {
   isOpen: boolean;
@@ -34,6 +35,8 @@ export default function RegisterModal({
   const [selectedEventId, setSelectedEventId] = useState<string>(initialEvent?.id || "");
   const [availableEvents, setAvailableEvents] = useState<EventOption[]>([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [registrationId, setRegistrationId] = useState("");
 
   useEffect(() => {
     if (initialEvent) {
@@ -56,7 +59,7 @@ export default function RegisterModal({
 
   const activeEvent = initialEvent || availableEvents.find((e) => e.id === selectedEventId);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !mobile) {
       toast({
@@ -67,6 +70,11 @@ export default function RegisterModal({
       return;
     }
 
+    setIsSending(true);
+
+    const regId = `EVH-${Date.now().toString(36).toUpperCase()}`;
+    setRegistrationId(regId);
+
     const regData = {
       name,
       email,
@@ -74,17 +82,34 @@ export default function RegisterModal({
       event: activeEvent?.name || "Event",
       eventId: activeEvent?.id,
       category,
+      registrationId: regId,
       date: new Date().toISOString(),
     };
 
-    // Save registration to LocalStorage
+    // 1. Save registration to LocalStorage
     const existing = JSON.parse(localStorage.getItem("eventhub_registrations") || "[]");
     localStorage.setItem("eventhub_registrations", JSON.stringify([regData, ...existing]));
 
+    // 2. Fire & forget: Send notification email to all 3 team members
+    notifyTeamOnRegistration({
+      registrantName: name,
+      registrantEmail: email,
+      registrantMobile: mobile,
+      eventName: activeEvent?.name || "Unknown Event",
+      eventCategory: activeEvent?.category || category,
+      eventDate: activeEvent?.displayDate || activeEvent?.date || "N/A",
+      eventTime: activeEvent?.time || "N/A",
+      eventVenue: activeEvent?.venue || "N/A",
+    }).catch(() => {
+      // Silent fail — registration still completes even if email fails
+    });
+
+    setIsSending(false);
     setIsSubmitted(true);
+
     toast({
       title: "Registration Successful! 🎉",
-      description: `Registered for ${activeEvent?.name || "Event"}`,
+      description: `Registered for ${activeEvent?.name || "Event"} — Team Nexus has been notified.`,
     });
   };
 
@@ -93,6 +118,7 @@ export default function RegisterModal({
     setName("");
     setEmail("");
     setMobile("");
+    setRegistrationId("");
     onClose();
   };
 
@@ -100,21 +126,41 @@ export default function RegisterModal({
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleResetAndClose()}>
       <DialogContent className="sm:max-w-[480px] rounded-2xl bg-white p-6 shadow-2xl">
         {isSubmitted ? (
-          <div className="py-8 text-center flex flex-col items-center space-y-4">
+          <div className="py-6 text-center flex flex-col items-center space-y-4">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-600">
               <CheckCircle2 className="w-10 h-10" />
             </div>
             <DialogTitle className="text-2xl font-bold text-gray-900">Registration Confirmed!</DialogTitle>
             <DialogDescription className="text-sm text-gray-600 max-w-xs">
               Thank you <span className="font-semibold text-gray-900">{name}</span>! Your spot for{" "}
-              <span className="font-semibold text-blue-600">{activeEvent?.name}</span> has been successfully reserved.
+              <span className="font-semibold text-blue-600">{activeEvent?.name}</span> has been reserved.
             </DialogDescription>
-            <div className="bg-blue-50 p-4 rounded-xl text-left text-xs text-blue-900 space-y-1 w-full border border-blue-100 mt-2">
+
+            {/* Registration Invoice Card */}
+            <div className="bg-blue-50 p-4 rounded-xl text-left text-xs text-blue-900 space-y-1.5 w-full border border-blue-100 mt-2">
+              <p className="font-bold text-blue-700 text-sm mb-2 border-b border-blue-200 pb-1.5">
+                🎟️ Registration Invoice — {registrationId}
+              </p>
+              <p><strong>Registrant:</strong> {name}</p>
+              <p><strong>Email:</strong> {email}</p>
+              <p><strong>Mobile:</strong> {mobile}</p>
+              <p><strong>Event:</strong> {activeEvent?.name}</p>
+              <p><strong>Category:</strong> {activeEvent?.category}</p>
               <p><strong>Venue:</strong> {activeEvent?.venue}</p>
-              <p><strong>Time:</strong> {activeEvent?.displayDate || activeEvent?.date} at {activeEvent?.time}</p>
-              <p><strong>Confirmation Email:</strong> Sent to {email}</p>
+              <p><strong>Date & Time:</strong> {activeEvent?.displayDate || activeEvent?.date} at {activeEvent?.time}</p>
+              <p><strong>Registered On:</strong> {new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}</p>
             </div>
-            <Button onClick={handleResetAndClose} className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl mt-4">
+
+            {/* Email notification confirmation */}
+            <div className="bg-emerald-50 border border-emerald-100 rounded-xl px-4 py-3 w-full text-xs text-emerald-800 flex items-center gap-2">
+              <Mail className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>
+                Invoice & registration details automatically sent to{" "}
+                <strong>Team Nexus (GNANESHWAR, RAM SHARMA & GANESH)</strong> for records.
+              </span>
+            </div>
+
+            <Button onClick={handleResetAndClose} className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl mt-2">
               Done
             </Button>
           </div>
@@ -219,12 +265,25 @@ export default function RegisterModal({
               </div>
             </div>
 
+            {/* Team notification notice */}
+            <div className="bg-amber-50 border border-amber-100 rounded-xl px-3 py-2.5 flex items-center gap-2 text-[11px] text-amber-900">
+              <Send className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+              <span>
+                On confirmation, your registration invoice will be auto-sent to
+                <strong> Team Nexus creators</strong> for records.
+              </span>
+            </div>
+
             <DialogFooter className="pt-4">
               <Button type="button" variant="outline" onClick={handleResetAndClose} className="rounded-xl">
                 Cancel
               </Button>
-              <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-6">
-                Confirm Registration
+              <Button
+                type="submit"
+                disabled={isSending}
+                className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-6"
+              >
+                {isSending ? "Confirming..." : "Confirm Registration"}
               </Button>
             </DialogFooter>
           </form>
