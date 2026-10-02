@@ -1,3 +1,7 @@
+##  Live Demo
+
+🔗 **Live URL**: https://festify-event-nexus.vercel.app/
+
 # EventHub — Festify EventNexus
 
 <div align="center">
@@ -14,11 +18,6 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
 </div>
-
-
-##  Live Demo
-
-🔗 **Live URL**: festify-event-nexus.vercel.app
 
 
 
