@@ -1,4 +1,4 @@
-# 🌟 EventHub — Festify EventNexus
+# EventHub — Festify EventNexus
 
 <div align="center">
 
@@ -15,13 +15,12 @@
 
 </div>
 
----
 
-## 🌐 Live Demo
+##  Live Demo
 
 🔗 **Live URL**: `https://YOUR-DEPLOYED-URL.vercel.app` *(Paste your live link here)*
 
----
+
 
 ## 📌 Table of Contents
 
@@ -36,9 +35,9 @@
 - [Project Structure](#-project-structure)
 - [License](#-license)
 
----
 
-## 🚀 Overview
+
+##  Overview
 
 **EventHub** is an all-in-one web portal engineered for colleges, universities, and student communities to discover, register for, and manage campus events seamlessly. 
 
@@ -47,22 +46,22 @@ The platform features:
 - **Instant Registration & Invoice Delivery**: Attendees receive an immediate confirmation with an event pass ID (`EVH-XXXXXX`), while registration details are automatically dispatched to the creators.
 - **Creator-Exclusive Control**: Role-based access ensures only authorized team administrators can create, edit, or delete events.
 
----
 
-## ✨ Key Features
 
-- 🕒 **Dynamic Date Engine**: Automatically calculates and displays upcoming dates starting from the current day onwards (`Today + 1 day`, `Today + 3 days`, etc.).
-- 🗓️ **Interactive Campus Calendar**: Dynamic monthly view with color-coded dot legends representing each category, supporting forward and backward month navigation.
-- 🏷️ **12 Broad Event Categories**: Comprehensive filtering for technical, cultural, gaming, athletic, and entrepreneurship fests.
-- 📝 **Modal-Based Quick Registration**: Clean, responsive registration dialog with live category and event selection.
-- 📧 **Automated Team Email Invoices**: Real-time email dispatch to all 3 team members on every participant submission via EmailJS.
-- 🔐 **Role-Based Admin Access (RBAC)**: Secure admin mode restricted exclusively to the 3 Team Nexus creators.
-- 👤 **Participant Authentication**: Built-in Sign Up and Login flow for attendees with local persistence.
-- 🎨 **Responsive UI/UX**: Built with shadcn/ui primitives, Tailwind CSS styling, animated transitions, and toast alerts.
+##  Key Features
 
----
+ **Dynamic Date Engine**: Automatically calculates and displays upcoming dates starting from the current day onwards (`Today + 1 day`, `Today + 3 days`, etc.).
+ **Interactive Campus Calendar**: Dynamic monthly view with color-coded dot legends representing each category, supporting forward and backward month navigation.
+ **12 Broad Event Categories**: Comprehensive filtering for technical, cultural, gaming, athletic, and entrepreneurship fests.
+ **Modal-Based Quick Registration**: Clean, responsive registration dialog with live category and event selection.
+ **Automated Team Email Invoices**: Real-time email dispatch to all 3 team members on every participant submission via EmailJS.
+ **Role-Based Admin Access (RBAC)**: Secure admin mode restricted exclusively to the 3 Team Nexus creators.
+ **Participant Authentication**: Built-in Sign Up and Login flow for attendees with local persistence.
+ **Responsive UI/UX**: Built with shadcn/ui primitives, Tailwind CSS styling, animated transitions, and toast alerts.
 
-## 🏷️ 12 Event Categories
+
+
+##  12 Event Categories
 
 | # | Category | Focus Area |
 |:---|:---|:---|
@@ -79,7 +78,7 @@ The platform features:
 | 11 | 🎨 **Art & Photography** | Live Canvas Painting, Digital Art & 3-Hour Photo Hunts |
 | 12 | 🗣️ **Literary & Debating** | Model UN, Parliamentary Debates & Slam Poetry Contests |
 
----
+
 
 ## 👥 Team Nexus Creators
 
@@ -87,11 +86,11 @@ This project was ideated, designed, and developed by a dedicated team of 3 devel
 
 | Creator | Role | Contact Email |
 | :--- | :--- | :--- |
-| 👑 **GNANESHWAR** | Project Lead & Full Stack Architect | `kesgirgnaneshwar025@gmail.com` |
-| 🎨 **RAM SHARMA** | UI/UX Specialist & Frontend Developer | `ramsharma21144@gmail.com` |
-| ⚙️ **GANESH** | Backend Logic & Event Integration | `ganeshd.koyalkar34@gmail.com` |
+|  **GNANESHWAR** | Project Lead & Full Stack Architect | `kesgirgnaneshwar025@gmail.com` |
+|  **RAM SHARMA** | UI/UX Specialist & Frontend Developer | `ramsharma21144@gmail.com` |
+|  **GANESH** | Backend Logic & Event Integration | `ganeshd.koyalkar34@gmail.com` |
 
----
+
 
 ## 🛠️ Tech Stack
 
@@ -104,9 +103,8 @@ This project was ideated, designed, and developed by a dedicated team of 3 devel
 - **Date Management**: [date-fns](https://date-fns.org/)
 - **Notifications & Delivery**: [@emailjs/browser](https://www.emailjs.com/) + Sonner / Radix Toaster
 
----
 
-## 📦 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - **Node.js** (v18.0.0 or higher recommended)
@@ -129,7 +127,7 @@ This project was ideated, designed, and developed by a dedicated team of 3 devel
    ```bash
    npm run dev
    ```
-   Open [http://localhost:8080](http://localhost:8080) in your browser.
+   Open in your browser.
 
 4. **Build for production:**
    ```bash
@@ -141,7 +139,6 @@ This project was ideated, designed, and developed by a dedicated team of 3 devel
    npm run preview
    ```
 
----
 
 ## 🔐 Role-Based Access Control (RBAC)
 
@@ -157,9 +154,8 @@ Administrative controls are secured and reserved exclusively for Team Nexus:
   - Search and filter by category or date.
   - Register for any event and receive an instant registration invoice.
 
----
 
-## 📧 Email Notification System
+##  Email Notification System
 
 Every participant registration triggers an automated notification to all 3 creators via EmailJS:
 
@@ -176,7 +172,6 @@ Participant registers on EventHub
     • ganeshd.koyalkar34@gmail.com
 ```
 
----
 
 ## 📁 Project Structure
 
@@ -209,7 +204,6 @@ festify-event-nexus/
 └── vite.config.ts               # Vite build configuration
 ```
 
----
 
 ## 📄 License
 
