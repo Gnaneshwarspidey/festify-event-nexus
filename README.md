@@ -6,7 +6,6 @@
 
 <div align="center">
 
-![EventHub Banner](https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&auto=format&fit=crop&q=80)
 
 **Discover, Register & Never Miss an Event!**  
 *A modern, interactive campus event discovery, scheduling, and registration platform built with React, TypeScript, Vite, and Tailwind CSS.*
