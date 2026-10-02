@@ -10,7 +10,7 @@
 **Discover, Register & Never Miss an Event!**  
 *A modern, interactive campus event discovery, scheduling, and registration platform built with React, TypeScript, Vite, and Tailwind CSS.*
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Website-0070F3?style=for-the-badge&logo=vercel&logoColor=white)](#-live-demo)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Website-0070F3?style=for-the-badge&logo=vercel&logoColor=white)](https://festify-event-nexus.vercel.app/)
 [![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![React](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
